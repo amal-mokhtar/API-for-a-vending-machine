@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  web:
+    image: python:3.11-slim
+    command: bash -c "pip install -r /app/requirements.txt && python /app/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
