@@ -20,3 +20,11 @@ from django.urls import path
 urlpatterns = [
     path("admin/", admin.site.urls),
 ]
+
+# router = DefaultRouter()
+# router.register(r'products', ProductViewSet)
+# router.register(r'users', VendingUserViewSet)
+
+# urlpatterns = [
+#     path('', include(router.urls)),
+# ]

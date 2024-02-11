@@ -30,3 +30,6 @@ staticfiles/
 
 # Docker
 docker-compose.override.yml
+
+# Django Migration
+vending_machine_api/migrations/
