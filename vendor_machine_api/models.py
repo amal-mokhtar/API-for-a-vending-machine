@@ -34,8 +34,7 @@ class Buyer(User):
     class Meta:
         proxy = True
 
-    def hi(self):
-        return "hello"
+
         
 
 class SellerManager(BaseUserManager):
@@ -53,20 +52,10 @@ class Seller(User):
     class Meta:
         proxy = True
 
-    def welcome(self):
-        return "Only for sellers"
+
     
 
 
-    # def deposit(self, amount):
-    #         if self.role == 'buyer':
-    #             self.deposit += amount
-    #             self.save()
-    #         else:
-    #             raise PermissionError("You're not authorized to deposit coins")
-
-
-        
 
 class Product(models.Model):
     # amoutAvailable refers to Quantity (?)
@@ -81,6 +70,14 @@ class Product(models.Model):
 
             
 
+
+
+    # def deposit(self, amount):
+    #         if self.role == 'buyer':
+    #             self.deposit += amount
+    #             self.save()
+    #         else:
+    #             raise PermissionError("You're not authorized to deposit coins")
 
 
 

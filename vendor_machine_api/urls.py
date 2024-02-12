@@ -21,10 +21,13 @@ urlpatterns = [
     path("admin/", admin.site.urls),
 ]
 
-# router = DefaultRouter()
-# router.register(r'products', ProductViewSet)
-# router.register(r'users', VendingUserViewSet)
+# from django.urls import path
+# from .views import UserListCreateView, UserDetailView, BuyerListCreateView, SellerListCreateView
 
 # urlpatterns = [
-#     path('', include(router.urls)),
+#     path('users/', UserListCreateView.as_view(), name='user-list-create'),
+#     path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
+#     path('buyers/', BuyerListCreateView.as_view(), name='buyer-list-create'),
+#     path('sellers/', SellerListCreateView.as_view(), name='seller-list-create'),
+#     # Add other URLs for your Product model if needed
 # ]

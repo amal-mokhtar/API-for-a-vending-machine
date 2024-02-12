@@ -1,7 +1,7 @@
-# # views.py
+from django.http import JsonResponse
 # from rest_framework import viewsets
-# from .models import Product, VendingUser
-# from .serializers import ProductSerializer, VendingUserSerializer
+from .models import Product
+from .serializers import ProductSerializer
 
 
 # get all products
@@ -9,7 +9,32 @@
 # return json
 
 
-    def make_purchase(self, product_price):
+
+from rest_framework import generics, permissions
+from .models import User, Buyer, Seller, Product
+from .serializers import UserSerializer, BuyerSerializer, SellerSerializer, ProductSerializer
+
+class UserListCreateView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]  # No authentication required for creating users
+
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    # You might want to add authentication and permission checks here
+
+class BuyerListCreateView(UserListCreateView):
+    serializer_class = BuyerSerializer
+
+class SellerListCreateView(UserListCreateView):
+    serializer_class = SellerSerializer
+
+
+
+
+
+def make_purchase(self, product_price):
         if self.role == 'buyer' and self.deposit >= product_price:
             self.deposit -= product_price
             self.save()
