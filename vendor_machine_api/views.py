@@ -44,14 +44,14 @@ def make_purchase(self, product_price):
         else:
             raise PermissionError("You're not authorized to make purchases")
 
-    def add_product(self, product_name, product_price):
+def add_product(self, product_name, product_price):
         if self.role == 'seller':
             Product.objects.create(name=product_name, price=product_price, seller_id=self.id)
             return True
         else:
             raise PermissionError("You're not authorized to add products")
 
-    def update_product(self, product_id, new_price):
+def update_product(self, product_id, new_price):
         if self.role == 'seller':
             try:
                 product = Product.objects.get(id=product_id, seller_id=self.id)
@@ -63,7 +63,7 @@ def make_purchase(self, product_price):
         else:
             raise PermissionError("You're not authorized to update products")
 
-    def remove_product(self, product_id):
+def remove_product(self, product_id):
         if self.role == 'seller':
             try:
                 product = Product.objects.get(id=product_id, seller_id=self.id)
