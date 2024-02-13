@@ -10,6 +10,7 @@ class User(AbstractUser):
         ADMIN = "ADMIN", 'Admin'
         BUYER = "BUYER", 'Buyer'
         SELLER = "SELLER", 'Seller'
+    
     baseRole = Role.ADMIN
     role = models.CharField(max_length=10, choices=Role.choices)
     deposit = models.IntegerField(default=0)
