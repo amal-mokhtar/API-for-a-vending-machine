@@ -14,7 +14,7 @@ class BuyerSerializer(UserSerializer):
 class SellerSerializer(UserSerializer):
     class Meta:
         model = Seller
-        fields = ['id', 'username',  'passsword', 'role', ]
+        fields = ['id', 'username',  'passsword', 'role' ]
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
