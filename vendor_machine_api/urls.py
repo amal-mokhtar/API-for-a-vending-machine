@@ -1,33 +1,16 @@
-"""
-URL configuration for vendor_machine_api project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
+from .views import *
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
+    
+    path('buyer/signup/', BuyerSignUp.as_view(), name='buyer-create'),
+    path('seller/signup/', SellerSignUp.as_view(), name='seller-create'),
+    path('login/', Login.as_view(), name='login'),
+    # path('logout/', Logout.as_view(), name='logout'),
+
+
+    path('users/', listUsers.as_view(), name='user-list'),
+
 ]
-
-# from django.urls import path
-# from .views import UserListCreateView, UserDetailView, BuyerListCreateView, SellerListCreateView
-
-# urlpatterns = [
-#     path('users/', UserListCreateView.as_view(), name='user-list-create'),
-#     path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
-#     path('buyers/', BuyerListCreateView.as_view(), name='buyer-list-create'),
-#     path('sellers/', SellerListCreateView.as_view(), name='seller-list-create'),
-#     # Add other URLs for your Product model if needed
-# ]
