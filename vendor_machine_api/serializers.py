@@ -4,17 +4,20 @@ from .models import User, Buyer, Seller, Product
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'passsword', 'role']
+        fields = ['id', 'username', 'password', 'role']
+        read_only_fields = ['role'] 
 
 class BuyerSerializer(UserSerializer):
     class Meta:
         model = Buyer
-        fields = ['id', 'username', 'passsword', 'role',  'deposit']
+        fields = ['id', 'username', 'password', 'role', 'deposit']
+        read_only_fields = ['role'] 
 
 class SellerSerializer(UserSerializer):
     class Meta:
         model = Seller
-        fields = ['id', 'username',  'passsword', 'role' ]
+        fields = ['id', 'username',  'password', 'role']
+        read_only_fields = ['role'] 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
