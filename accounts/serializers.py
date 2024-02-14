@@ -6,17 +6,17 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'role']
+        fields = ['id', 'username', 'password', 'role']
         read_only_fields = ['role'] 
 
 class BuyerSerializer(UserSerializer):
     class Meta:
         model = Buyer
-        fields = ['id', 'username', 'role', 'deposit']
+        fields = ['id', 'username', 'password', 'role', 'deposit']
         read_only_fields = ['role'] 
 
 class SellerSerializer(UserSerializer):
     class Meta:
         model = Seller
-        fields = ['id', 'username', 'role']
+        fields = ['id', 'username','password', 'role']
         read_only_fields = ['role'] 

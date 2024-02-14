@@ -3,9 +3,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
 from products.serializers import ProductSerializer
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 from .models import Buyer
 from products.models import Product
 from .serializers import UserSerializer, BuyerSerializer, SellerSerializer
+from django.utils.decorators import method_decorator
+
 
 ################## LOGIN and SIGNUP ##################
 class BuyerSignUp(generics.CreateAPIView):
@@ -26,35 +30,44 @@ class SellerSignUp(generics.CreateAPIView):
         user_data = response.data
         return Response({"message": "User created successfully!", "user_data": user_data}, status=response.status_code)
 
-class Login(APIView):
+
+
+class Login(generics.CreateAPIView):
     permission_classes = [permissions.AllowAny]
-
+    
+    @method_decorator(csrf_exempt, name='dispatch')
     def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        user = authenticate(request, username=username, password=password)
+        try:
+            username = request.data.get('username')
+            password = request.data.get('password')
+            user = authenticate(request, username=username, password=password)
 
-        if user:
-            login(request, user)
-            serializer = UserSerializer(user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+            if user:
+                login(request, user)
+                serializer = UserSerializer(user)
+                return Response({"message": "User logged in successfully!", "user_data": serializer.data}, status=status.HTTP_200_OK)
+            else:
+                return Response({"An error occurred": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
+        except Exception as e:
+            return Response({f"An error occurred during login: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
 class Logout(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
-        logout(request)
-        return Response({"message": "User logged out successfully!"}, status=status.HTTP_200_OK)
-    
+        try:
+            logout(request)
+            return Response({"message": "User Logged out successfully!"}, status=status.HTTP_200_OK)
 
+        except Exception as e:
+            return Response({"An error occurred during logout": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 ################## Seller and Buyer Funtionalities ##################
 class Deposit(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request):
+    def deposit(self, request):
         try:
             user = request.user
             if user.role != 'buyer':
@@ -75,7 +88,7 @@ class Deposit(APIView):
 class Buy(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request):
+    def buyProduct(self, request):
         try:
             user = request.user
             if user.role != 'buyer':
@@ -111,7 +124,7 @@ class Buy(APIView):
 class ResetDeposit(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request):
+    def reset(self, request):
         try:
             user = request.user
             if user.role != 'buyer':
