@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
-from .views import *
+from accounts.views import *
+from products.views import *
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,6 +13,10 @@ urlpatterns = [
     # path('logout/', Logout.as_view(), name='logout'),
 
 
-    path('users/', listUsers.as_view(), name='user-list'),
+    path('products/', ListProducts.as_view(), name='product-list'),
+    path('products/<int:pk>/', ProductRUD.as_view(), name='product-detail'),
+    path('deposit/', Deposit.as_view(), name='deposit'),
+    path('buy/', Buy.as_view(), name='buy'),
+    path('reset/', ResetDeposit.as_view(), name='reset'),
 
 ]

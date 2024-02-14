@@ -33,3 +33,5 @@ docker-compose.override.yml
 
 # Django Migration
 vendor_machine_api/migrations/
+accounts/migrations
+products/migrations

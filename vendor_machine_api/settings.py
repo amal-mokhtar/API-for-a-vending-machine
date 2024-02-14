@@ -25,7 +25,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "vendor_machine_api",
+    "accounts",
+    "products",
     "rest_framework",
     'rest_framework.authtoken',
 ]
@@ -133,4 +134,4 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Authorization
-AUTH_USER_MODEL = 'vendor_machine_api.User'
+AUTH_USER_MODEL = 'accounts.User'
